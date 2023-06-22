@@ -14,6 +14,7 @@ import type {ActionFunction, LoaderArgs} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {useFetcher, useLoaderData} from '@remix-run/react'
 import {ObjectId} from 'bson'
+import cuid from 'cuid'
 import * as React from 'react'
 import slugify from 'slugify'
 import {TailwindContainer} from '~/components/TailwindContainer'
@@ -56,7 +57,7 @@ export const action: ActionFunction = async ({request}) => {
 	}
 
 	const {productId, ...rest} = fields
-	const id = new ObjectId()
+	const id = cuid()
 
 	await db.product.upsert({
 		where: {
